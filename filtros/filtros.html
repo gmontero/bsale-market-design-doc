@@ -1,0 +1,141 @@
+<div class="hidden-lg hidden-md" id="leftbar">
+  <div id="rightbar_inner" class="clearfix rightbar_2">
+    <div  class="filters-box">
+      <a href="#" onclick="Filtro.toggleMenu(); return false;" class="leftbar_tri icon_wrap" title="Ver mi lista de compras">
+        <i class="fa fa-filter" aria-hidden="true"></i>
+        <span class="icon_text text-center">Filtros</span> 
+      </a>
+    </div>
+  </div>
+</div>
+<div id="filters" class="refinements hidden-on-mobile">
+    <h2>Filtros</h2>
+    <div class="js-refinement-actions-mobile is-mobile refinements-bottom" style="overflow:hidden;">
+        <a href="{{paginate.link}}" class="  pull-left btn btn-default">
+        Borrar todo
+        </a>
+        <a  href="{{paginate.link}}" 
+            onclick="Filtro.start(this); return false;"
+            class="breadcrumb-up  pull-right btn btn-default">
+        Filtrar
+        </a>
+    </div>
+    
+    <div class="hidden-lg hidden-md hidden-sm col-xs-12 button-close" onclick="Filtro.toggleMenu(); return false;">
+        <i class="close" aria-hidden="true"></i>
+    </div>
+    {%if paginate.filter contains 'search_text' %}
+    <input type="hidden" name="search_text" value="{{paginate.filter['search_text']}}" >
+    {%endif%}
+    {%if paginate.filter contains 'template' %}
+    <input type="hidden" name="template" value="{{paginate.filter['template']}}" >
+    {%endif%}
+ 
+    {% unless current_url contains '/search?' %}
+        <div class="refinement ">
+        
+        	<script>
+            	$( function() {
+            	    var min = {{collection.limitPrice['minPrice']}}
+            	    var max = {{collection.limitPrice['maxPrice']}}
+            	    if('{{paginate.filter['minPrice']}}' != ''){
+            	        min = '{{paginate.filter['minPrice']}}'
+            	    }
+            	    if('{{paginate.filter['maxPrice']}}' != ''){
+            	        max = '{{paginate.filter['maxPrice']}}'
+            	    }
+            		$( "#slider-range" ).slider({
+            			range: true,
+            			min: {{collection.limitPrice['minPrice']}},
+            			max: {{collection.limitPrice['maxPrice']}},
+            			values: [ min, max ],
+            			slide: function( event, ui ) {
+            				$( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+            				$('[name="minPrice"]').val(ui.values[ 0 ]);
+            				$('[name="maxPrice"]').val(ui.values[ 1 ]);
+            			}
+            		});
+            		$( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
+            			" - $" + $( "#slider-range" ).slider( "values", 1 ) );
+            	});
+        	</script>
+            <h3 class="refinement-head">
+                Precio
+            </h3>
+            <div data-role="rangeslider">
+                <p>
+                	<input type="text" id="amount" readonly >
+                </p>
+                <input type="hidden" name="minPrice" value="{{paginate.filter['maxPice']}}" >
+                <input type="hidden" name="maxPrice" value="{{paginate.filter['maxPice']}}" >
+                <div id="slider-range"></div>
+            </div>
+        </div>
+    {% endunless %}
+
+    <div class="widget categories panel panel-default">
+             <div class="panel-heading">
+                <a class="h3 widget-title uppercase panel-title" data-toggle="collapse" href="#collapseA">
+                ORDENAR POR<i style="float:right;" class="fa fa-caret-down"></i></a>
+            </div>
+            <div id="collapseA" class="js-refinement-color panel-collapse collapse">
+                <ul class="clearfix list-group">
+                <li class="list-group-item">
+                    <input type="radio" name="order" value="sortby1"
+                    {% if paginate.filter['order'] contains "price" and paginate.filter['way'] contains "asc" %}checked{%endif%}>
+                    <label for="order">Precio de Menor a Mayor</label>
+                </li>
+                <li class="list-group-item">
+                    <input type="radio" name="order" value="sortby2"
+                    {% if paginate.filter['order'] contains "price" and paginate.filter['way'] contains "desc" %}checked{%endif%}>
+                    <label for="order">Precio de Mayor a Menor</label>
+                </li>
+                <li class="list-group-item">
+                    <input type="radio" name="order" value="sortby3"
+                    {% if paginate.filter['order'] contains "name" and paginate.filter['way'] contains "asc" %}checked{%endif%}>
+                    <label for="order">Nombre (A-Z)</label>
+                </li>
+                <li class="list-group-item">
+                    <input type="radio" name="order" value="sortby4"
+                    {% if paginate.filter['order'] contains "name" and paginate.filter['way'] contains "desc" %}checked{%endif%}>
+                    <label for="order">Nombre (Z-A)</label>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+<!--price&way=desc name&way =asc -->
+
+    {% for attr in collection.attributes %}
+        {% if attr[1].values.size > 0 %} {%comment%} si hay mas de 1 attr lo dibuja {%endcomment%}
+            <div class="widget categories panel panel-default">
+             <div class="panel-heading">
+                <a class="h3 widget-title uppercase panel-title" data-toggle="collapse" href="#{{attr[1].code}}">
+                    {{attr[1].name}}<i style="float:right;" class="fa fa-caret-down"></i>
+                </a>
+            </div>
+            <div id="{{attr[1].code}}" class="js-refinement-color panel-collapse collapse">
+                <ul class="clearfix list-group">
+                    {% assign data =''%}
+                    {% assign data = attr[1].code %}
+                    {% for item in attr[1].values %}
+                        {% if item.size > 0%}
+                            <li class="list-group-item">
+                                <input  class="" 
+                                        id="{{item}}" 
+                                        name="{{attr[1].code}}"
+                                        type="checkbox" 
+                                        {%if paginate.filter[data] contains item %}
+                                            checked
+                                        {%endif%}
+                                        value="{{item | replace:"''", ""}}">
+                                <label for="{{item | replace:"''", ""}}">{{item}}</label>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+    {%endfor%}
+</div>

@@ -34,4 +34,4 @@ Para más información ver [Componente](https://github.com/gmontero/bsale-market
 
 Los archivos son todos los documentos necesarios para darle funcionalidad y estilos a tu template, en este menú se deben alojar todos los archivos `js`, `css` e imagenes<sup>1</sup>  que utilices en la construcción de tu template.
 
-Para más información ver [ Archivos ]https://github.com/gmontero/bsale-market-desing-doc/wiki/Archivos
+Para más información ver [ Archivos ](https://github.com/gmontero/bsale-market-desing-doc/wiki/Archivos)

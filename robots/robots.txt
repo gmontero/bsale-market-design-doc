@@ -1,0 +1,34 @@
+# @Bsale 2018
+
+# Todos los agentes
+User-agent: *  
+
+# Tiempo de acceso cada 60 seg //no lo considera google bot  
+Crawl-delay: 60
+
+# Bloquea todo, para evitar directorios anteriores  
+
+Disallow: /*
+
+# permite index
+
+Allow: /$
+
+# Permitidos SOLO desde estos directorios elementos hijos 
+# ej product/nombre, bloquea product
+# las busquedas no se muestran ya que son particulares por usuario y no deben quedar vinculadas a google 
+
+Allow: /product/*
+Allow: /brand/*
+Allow: /collection/*
+Allow: /article/*
+Allow: /form/*
+Allow: /sheet/*
+Allow: /sitemap*
+Allow: /robots.txt
+
+# Direccion del sitemap (el sitemap de genera automatico, no se puede editar)
+# pon aqui tu sitemap de tipo:
+# Sitemap: https://tusitio.cl/sitemap.xml // utiliza www si tu dirección principal usar www
+
+Sitemap: https://tusitio.cl/sitemap.xml

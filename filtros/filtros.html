@@ -1,9 +1,11 @@
+{% assign deleteAttibutes = "Color, Talla" | split: ',' %}<!-- escribe los attr que quieras oculta separados con coma -->
+
 <div class="hidden-lg hidden-md" id="leftbar">
   <div id="rightbar_inner" class="clearfix rightbar_2">
     <div  class="filters-box">
       <a href="#" onclick="Filtro.toggleMenu(); return false;" class="leftbar_tri icon_wrap" title="Ver mi lista de compras">
         <i class="fa fa-filter" aria-hidden="true"></i>
-        <span class="icon_text text-center">Filtros</span> 
+        <span class="content_tittle">Filtros</span> 
       </a>
     </div>
   </div>
@@ -31,7 +33,7 @@
     <input type="hidden" name="template" value="{{paginate.filter['template']}}" >
     {%endif%}
  
-    {% unless current_url contains '/search?' %}
+
         <div class="refinement ">
         
         	<script>
@@ -71,7 +73,7 @@
                 <div id="slider-range"></div>
             </div>
         </div>
-    {% endunless %}
+
 
     <div class="widget categories panel panel-default">
              <div class="panel-heading">
@@ -103,39 +105,49 @@
             </ul>
         </div>
     </div>
-
 <!--price&way=desc name&way =asc -->
-
+    {%assign flagAttr = false %}
     {% for attr in collection.attributes %}
-        {% if attr[1].values.size > 0 %} {%comment%} si hay mas de 1 attr lo dibuja {%endcomment%}
-            <div class="widget categories panel panel-default">
-             <div class="panel-heading">
-                <a class="h3 widget-title uppercase panel-title" data-toggle="collapse" href="#{{attr[1].code}}">
-                    {{attr[1].name}}<i style="float:right;" class="fa fa-caret-down"></i>
-                </a>
+        {% for del in deleteAttibutes %}
+            {% assign dele = del | upcase | strip %}
+            {% assign att = attr[0] | upcase | strip %}
+            {% if att == dele  %}
+                {%assign flagAttr = true %}
+                {{break}}
+            {% endif %}
+        {% endfor %}
+        {%if flagAttr == false%}
+            {% if attr[1].values.size > 0 %} {%comment%} si hay mas de 1 attr lo dibuja {%endcomment%}
+                <div class="widget categories panel panel-default">
+                 <div class="panel-heading">
+                    <a class="h3 widget-title uppercase panel-title" data-toggle="collapse" href="#{{attr[1].code}}">
+                        {{attr[1].name}}<i style="float:right;" class="fa fa-caret-down"></i>
+                    </a>
+                </div>
+                <div id="{{attr[1].code}}" class="js-refinement-color panel-collapse collapse">
+                    <ul class="clearfix list-group">
+                        {% assign data =''%}
+                        {% assign data = attr[1].code %}
+                        {% for item in attr[1].values %}
+                            {% if item.size > 0%}
+                                <li class="list-group-item">
+                                    <input  class="" 
+                                            id="{{item}}" 
+                                            name="{{attr[1].code}}"
+                                            type="checkbox" 
+                                            {%if paginate.filter[data] contains item %}
+                                                checked
+                                            {%endif%}
+                                            value="{{item | replace:"''", ""}}">
+                                    <label for="{{item | replace:"''", ""}}">{{item}}</label>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
             </div>
-            <div id="{{attr[1].code}}" class="js-refinement-color panel-collapse collapse">
-                <ul class="clearfix list-group">
-                    {% assign data =''%}
-                    {% assign data = attr[1].code %}
-                    {% for item in attr[1].values %}
-                        {% if item.size > 0%}
-                            <li class="list-group-item">
-                                <input  class="" 
-                                        id="{{item}}" 
-                                        name="{{attr[1].code}}"
-                                        type="checkbox" 
-                                        {%if paginate.filter[data] contains item %}
-                                            checked
-                                        {%endif%}
-                                        value="{{item | replace:"''", ""}}">
-                                <label for="{{item | replace:"''", ""}}">{{item}}</label>
-                            </li>
-                        {% endif %}
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
+            {% endif %}
         {% endif %}
+        {%assign flagAttr = false %}
     {%endfor%}
 </div>

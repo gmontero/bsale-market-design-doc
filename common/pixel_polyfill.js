@@ -6,8 +6,7 @@
             console.log('Pixel polyfill:', {event: event, data: data})
         }
     }
-
-    $('body').on('click', 'a, button, input[type="submit"]', function () {
+    $('document').on('click', 'a, button, input[type="submit"]', function () {
         if ($(this).is('a') && $(this).attr('href') && $(this).attr('href').indexOf('product') !== -1) {
             // to do: get products info
             track('ViewContent', {})

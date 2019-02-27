@@ -7,6 +7,7 @@
 .bs-product .bs-discount,
 .bs-discount-condition,
 .bs-discount-info{
+    display:inline-block;
     display:none;
 }
 

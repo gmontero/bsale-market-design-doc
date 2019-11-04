@@ -12,7 +12,7 @@
     
     # Bloquea todo, para evitar directorios anteriores  
     
-    Disallow: /*
+    Disallow: /*?
     
     # permite index
     

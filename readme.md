@@ -2,36 +2,42 @@
 
 Bienvenido a la wiki  para **e-commerce Bsale**.
  
-En Bsale todos los sitios se estructuran en base a los 4 conceptos descritos a continuación:  
+[Liquid](https://github.com/gmontero/bsale-market-design-doc/wiki/Liquid-Bsale)  es un motor de template utilizado por los principales ecommerce a nivel mundial, en Bsale trabajamos con un liquid personalizado que permite imprimir en el template la información de tus productos, colecciones y configuraciones. 
 
-## Liquid 
-Liquid es un motor de template utilizado por los principales ecommerce a nivel mundial, en Bsale trabajamos con un liquid personalizado que permite imprimir en el template la información de tus productos, colecciones y configuraciones. 
-
-Para más información ver [Liquid Bsale](https://github.com/gmontero/bsale-market-desing-doc/wiki/Liquid-Bsale)
-
-
-
-## Plantillas
+## 1. [Plantillas](https://github.com/gmontero/bsale-market-design-doc/wiki/Plantillas)
 
 `Tienda en Linea > Diseño > Plantillas`
 
 Cada template de bsale se construye en base diferentes tipos de plantillas, cada una de estas representa una tipo de página dentro de tu sitio, como por ejemplo: _Colección, Marca, Producto_
 
 
-Para más información [Plantillas](https://github.com/gmontero/bsale-market-desing-doc/wiki/Plantillas)
+Para más información [Plantillas](https://github.com/gmontero/bsale-market-design-doc/wiki/Plantillas)
 
-## Componentes
+## 2. [[Componentes | Componente]]
 
 `Tienda en Linea > Diseño > Componentes`
 
 Los componentes son estructuras `html` que construyen las diferentes partes de una plantilla. Por ejemplo la **Cabecera** o **Pie de Página** que deben ir en la mayoría de las plantillas.
 
-Para más información ver [Componente](https://github.com/gmontero/bsale-market-desing-doc/wiki/Componente)
+Para más información ver [[ Componente ]]
 
-## Archivos
+## 3. [[Variables]]
+Las variables te permiten acceder a la información de tus productos y configuraciones para que sea más fácil construir tu template
+
+Para más información ver [[Variables]]
+
+## 4. [[Archivos]]
 
 `Tienda en Linea > Diseño > Archivos`
 
 Los archivos son todos los documentos necesarios para darle funcionalidad y estilos a tu template, en este menú se deben alojar todos los archivos `js`, `css` e imagenes<sup>1</sup>  que utilices en la construcción de tu template.
 
-Para más información ver [ Archivos ](https://github.com/gmontero/bsale-market-desing-doc/wiki/Archivos)
+Para más información ver [[ Archivos ]]
+> [1]: _Las imágenes de los productos y logotipos de cargan desde sus propias configuraciones._
+
+## Framework JS
+
+Puedes agregar otro framework js para potenciar tu e-commerce.
+
+Para más información ver [[ trabajar con framework | Utilizar framework JS en Liquid (Mustache, Handlebars, Vue etc...)]]
+
